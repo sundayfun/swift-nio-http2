@@ -17,6 +17,7 @@ import NIOHTTP1
 
 /// Very similar to `NIOHTTP1.HTTPHeaders`, but with extra data for storing indexing
 /// information.
+@frozen
 public struct HPACKHeaders: ExpressibleByDictionaryLiteral {
     @usableFromInline
     internal var headers: [HPACKHeader]
@@ -290,6 +291,7 @@ extension HPACKHeaders {
 extension HPACKHeaders: RandomAccessCollection {
     public typealias Element = (name: String, value: String, indexable: HPACKIndexing)
 
+    @frozen
     public struct Index: Comparable {
         @usableFromInline
         let _base: Array<HPACKHeaders>.Index
@@ -340,6 +342,7 @@ extension HPACKHeaders: RandomAccessCollection {
     ///
     /// This iterator will return each value for a given header name separately. That
     /// means that `name` is not guaranteed to be unique in a given block of headers.
+    @frozen
     public struct Iterator: IteratorProtocol {
         @usableFromInline
         var _base: Array<HPACKHeader>.Iterator
@@ -425,6 +428,7 @@ public enum HPACKIndexing: CustomStringConvertible {
 }
 
 @usableFromInline
+@frozen
 internal struct HPACKHeader {
     @usableFromInline
     var indexing: HPACKIndexing
